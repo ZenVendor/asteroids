@@ -16,6 +16,7 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
+        ship.update(dt)
         screen.fill((0, 0, 0))
         ship.draw(screen)
 
