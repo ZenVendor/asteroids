@@ -5,10 +5,15 @@ import player
 
 def main():
     pygame.init()
-    print("Starting asteroids!")
     screen = pygame.display.set_mode((c.SCREEN_WIDTH, c.SCREEN_HEIGHT))
+    # Set up clock
     clock = pygame.time.Clock()
     dt = 0
+    # Groups
+    updatable = pygame.sprite.Group()
+    drawable = pygame.sprite.Group()
+
+    player.Player.containers = (updatable, drawable)
     ship = player.Player(c.SCREEN_WIDTH / 2, c.SCREEN_HEIGHT / 2)
 
     while True:
@@ -16,9 +21,13 @@ def main():
             if event.type == pygame.QUIT:
                 return
 
-        ship.update(dt)
         screen.fill((0, 0, 0))
-        ship.draw(screen)
+
+        for item in updatable:
+            item.update(dt)
+
+        for item in drawable:
+            item.draw(screen)
 
         clock.tick(60)
         dt = clock.get_time() / 1000
