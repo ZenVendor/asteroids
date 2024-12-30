@@ -40,10 +40,14 @@ def main():
         for item in updatable:
             item.update(dt)
 
-        for item in asteroids:
-            if ship.collide(item):
+        for roid in asteroids:
+            if roid.collide(ship):
                 print("Game over!")
                 sys.exit(0)
+            for bullet in shots:
+                if roid.collide(bullet):
+                    roid.split()
+                    bullet.kill()
 
         for item in drawable:
             item.draw(screen)
